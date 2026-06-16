@@ -1,0 +1,33 @@
+name: Set Offline
+
+on:
+  schedule:
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: status-update
+  cancel-in-progress: false
+
+jobs:
+  set-offline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write offline status
+        run: |
+          printf '{\n  "available": false,\n  "label": "Unavailable",\n  "updated": "%s"\n}\n' \
+            "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > status.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add status.json
+          git diff --staged --quiet || git commit -m "chore: set offline"
+          git pull --rebase origin main
+          git push
+          
