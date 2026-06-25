@@ -2,18 +2,24 @@
 
 # Hi, I'm Jhner
 
-Web Developer · Discord Bot Developer · Lua Scripter
+**Web Developer · Discord Bot Developer · Lua Scripter**
 
-[Portfolio](https://jhner.is-a.dev)
-[Email](mailto:jhnergarcia@gmail.com)
+<br>
+
+[
+
+![Portfolio](https://img.shields.io/badge/Portfolio-jhner.is--a.dev-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+](https://jhner.is-a.dev)
+[
+
+![Email](https://img.shields.io/badge/Email-jhnergarcia%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)
+
+](mailto:jhnergarcia@gmail.com)
+
+<br>
 
 </div>
-
----
-
-## Tech Stack
-
-HTML · CSS · JavaScript · Lua · Discord.js · Git
 
 ---
 
