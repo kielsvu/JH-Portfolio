@@ -4,7 +4,7 @@
 
 If you spot a security issue with this project, please don't post it publicly as an issue. Just email me directly instead.
 
-**Contact:** kieltrres@gmail.com
+**Contact:** jhnergarcia@gmail.com
 
 When you reach out, it helps if you can include:
 - What the issue is
