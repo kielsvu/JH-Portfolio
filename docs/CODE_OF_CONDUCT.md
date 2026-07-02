@@ -1,26 +1,26 @@
 # Code of Conduct
 
-## Our Pledge
+## The gist
 
-This project is maintained as a personal portfolio, but everyone interacting with it — whether through issues, discussions, or messages — is expected to be respectful and considerate.
+This is a personal portfolio project, but if you're opening issues, leaving comments, or reaching out about it, just be cool. Respect goes both ways.
 
-## Expected Behavior
+## What's cool
 
-- Be respectful and constructive in comments, issues, and messages
-- Give and accept feedback gracefully
-- Respect differing viewpoints and experiences
+- Being respectful and constructive when you comment or reach out
+- Giving feedback in a way that's actually helpful, not just harsh
+- Being okay with different opinions and experiences
 
-## Unacceptable Behavior
+## What's not cool
 
-- Harassment, insults, or personal attacks
+- Harassment, insults, or attacking someone personally
 - Discriminatory jokes or language
-- Publishing others' private information without consent
-- Spam or off-topic disruptive behavior
+- Sharing someone's private info without asking
+- Spamming or derailing conversations
 
-## Enforcement
+## If something happens
 
-Instances of unacceptable behavior may be reported by contacting the maintainer directly (see [README.md](./README.md) for contact info). Reports will be reviewed and may result in comments being removed, issues being closed, or the user being blocked from the repository.
+If someone's being disrespectful, reach out to me directly (contact info's in the README). I'll look into it, and depending on what happened, that could mean removing a comment, closing an issue, or blocking someone from the repo.
 
-## Scope
+## Where this applies
 
-This Code of Conduct applies within all project spaces, including issues, pull requests, discussions, and any direct communication related to this project.
+Basically anywhere related to this project: issues, pull requests, discussions, or direct messages about it.

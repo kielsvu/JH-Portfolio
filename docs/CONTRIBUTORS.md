@@ -1,13 +1,11 @@
 # Contributors
 
-Thanks to everyone who helped shape this project:
+Big thanks to the people who helped make this project happen:
 
-- **Kiel Torres** — Co-developer, design and feature collaboration
-- **Ivan G.T.** — Testing and feedback
-- **Sam D.C.** — Content suggestions and proofreading
-- **Xhy J.G.** — My biggest supporter, always there through every late night and every update
-- **Jake G.T.** — Testing and feedback
+- **Kiel Torres** - co-dev, helped out with the design and features
+- **Ivan G.T.** - tested things out and gave feedback
+- **Sam D.C.** - helped with proofreading and content ideas
+- **Xhy J.G.** - my girlfriend, and honestly my biggest supporter through all the late nights working on this
+- **Jake G.T.** - tested things out and gave feedback
 
----
-
-Want to contribute or suggest an improvement? Feel free to reach out — see [README.md](./README.md) for contact info.
+Got feedback or want to help out? Hit me up, contact info's in the README.
