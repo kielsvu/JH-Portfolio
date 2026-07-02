@@ -19,7 +19,7 @@ This is a personal portfolio project, but if you're opening issues, leaving comm
 
 ## If something happens
 
-If someone's being disrespectful, reach out to me directly (contact info's in the README). I'll look into it, and depending on what happened, that could mean removing a comment, closing an issue, or blocking someone from the repo.
+If someone's being disrespectful, reach out to me directly (contact info's in the [README](https://github.com/kielsvu/JH-Portfolio/blob/main/README.md)). I'll look into it, and depending on what happened, that could mean removing a comment, closing an issue, or blocking someone from the repo.
 
 ## Where this applies
 
