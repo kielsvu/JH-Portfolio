@@ -1,5 +1,7 @@
-/* BEAM  -  runs every frame, no skip, no blink */
+/* Persistent background beam. Runs every frame, no skipping. */
 (function(){
+  var reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reducedMotion)return;
   var c=document.getElementById("beam-c"),ctx=c.getContext("2d"),W,H;
   function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
   resize();window.addEventListener("resize",resize,{passive:true});
@@ -28,8 +30,11 @@
     var fg=ctx.createRadialGradient(ox,oy,0,ox,oy,90);
     fg.addColorStop(0,"rgba(250,240,255,.45)");fg.addColorStop(.3,"rgba(220,200,255,.18)");fg.addColorStop(.7,"rgba(180,150,240,.05)");fg.addColorStop(1,"rgba(0,0,0,0)");
     ctx.beginPath();ctx.arc(ox,oy,90,0,6.2832);ctx.fillStyle=fg;ctx.fill();
-    requestAnimationFrame(draw);
+    if(!document.hidden)requestAnimationFrame(draw);
   }
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden)requestAnimationFrame(draw);
+  });
   draw();
 })();
 
@@ -40,6 +45,7 @@
     document.removeEventListener('click',enter);
     document.removeEventListener('touchend',enter);
     document.getElementById('intro').classList.add('exit');
+    window.__introBeamActive=false;
     setTimeout(function(){document.body.classList.remove('intro-lock');},800);
   }
   document.body.classList.add('intro-lock');
@@ -84,7 +90,10 @@
   window.addEventListener('resize',sz,{passive:true});
   var A=28,DS=Array.from({length:60},function(){return{t:Math.random(),s:(Math.random()-.5)*2,sz:Math.random()*1.2+.2,sp:.00012+Math.random()*.00020,op:Math.random()*.40+.08,dr:(Math.random()-.5)*.00016};});
   function cl(v,a,b){return Math.min(b,Math.max(a,v));}
+  window.__introBeamActive=true;
   function dr(){
+    if(!window.__introBeamActive)return;
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     ctx.clearRect(0,0,W,H);
     var r=A*Math.PI/180,dx=Math.sin(r),dy=Math.cos(r),bx=-dy,by=dx,ox=W*.18,oy=0,hw=cl(W*.13,60,220),OV=Math.sqrt(W*W+H*H);
     var sx=ox-dx*OV,sy=oy-dy*OV,ex=ox+dx*OV,ey=oy+dy*OV,sp=hw*1.8;
@@ -242,10 +251,22 @@ function animateTechCards(){
   });
 }
 
+function animateCertCards(){
+  var cards=document.querySelectorAll('.cert-card');
+  cards.forEach(function(c,i){c.classList.remove('visible');c.style.transitionDelay=(i*60)+'ms';});
+  var panel=document.getElementById('tab-certificate');
+  void panel.offsetWidth;
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      cards.forEach(function(c){c.classList.add('visible');});
+    });
+  });
+}
+
 (function(){
   var tabs=document.querySelectorAll('.port-tab');
   var ink=document.getElementById('tab-ink');
-  var panels={projects:document.getElementById('tab-projects'),techstack:document.getElementById('tab-techstack')};
+  var panels={projects:document.getElementById('tab-projects'),certificate:document.getElementById('tab-certificate'),techstack:document.getElementById('tab-techstack')};
   function posInk(btn){ink.style.width=btn.offsetWidth+'px';ink.style.transform='translateX('+btn.offsetLeft+'px)';}
   window.addEventListener('load',function(){
     var a=document.querySelector('.port-tab.active');
@@ -259,6 +280,7 @@ function animateTechCards(){
       var id=tab.dataset.tab;
       Object.keys(panels).forEach(function(k){panels[k].classList.toggle('hidden',k!==id);});
       if(id==='techstack')animateTechCards();
+      if(id==='certificate')animateCertCards();
       if(id==='projects')animateProjCards();
     });
   });
@@ -380,18 +402,25 @@ setTimeout(function(){
 },2200);
 
 (function(){
+  var reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reducedMotion)return;
+  var hiddenByCSS=window.matchMedia&&window.matchMedia('(max-width: 599px)').matches;
+  if(hiddenByCSS)return;
   var c=document.getElementById('grain-c'),ctx=c.getContext('2d'),W,H,frame=0;
   function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
   resize();
   window.addEventListener('resize',resize,{passive:true});
   function drawGrain(){
     frame++;
-    if(frame%6!==0){requestAnimationFrame(drawGrain);return;}
+    if(frame%6!==0){if(!document.hidden)requestAnimationFrame(drawGrain);return;}
     var img=ctx.createImageData(W,H),d=img.data;
     for(var i=0;i<d.length;i+=4){var v=Math.random()*255|0;d[i]=v;d[i+1]=v;d[i+2]=v;d[i+3]=Math.random()*22|0;}
     ctx.putImageData(img,0,0);
-    requestAnimationFrame(drawGrain);
+    if(!document.hidden)requestAnimationFrame(drawGrain);
   }
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden)requestAnimationFrame(drawGrain);
+  });
   drawGrain();
 })();
 
@@ -517,19 +546,21 @@ function renderReviews(list){
 })();
 
 (function(){
-  var photo=document.querySelector('.about-photo');
-  var shield=document.getElementById('img-shield');
   function block(e){e.preventDefault();return false;}
-  if(photo){photo.addEventListener('contextmenu',block);photo.addEventListener('dragstart',block);}
-  if(shield){
+  document.querySelectorAll('.protected-img').forEach(function(photo){
+    photo.addEventListener('contextmenu',block);
+    photo.addEventListener('dragstart',block);
+  });
+  document.querySelectorAll('.img-shield').forEach(function(shield){
     shield.addEventListener('contextmenu',block);
     shield.addEventListener('dragstart',block);
     shield.addEventListener('touchstart',function(e){e.stopPropagation();},{passive:false});
     shield.addEventListener('touchend',function(e){e.stopPropagation();},{passive:false});
     shield.addEventListener('touchmove',function(e){e.preventDefault();},{passive:false});
-  }
-  var frame=document.querySelector('.about-frame');
-  if(frame)frame.addEventListener('contextmenu',block);
+  });
+  document.querySelectorAll('.protected-frame').forEach(function(frame){
+    frame.addEventListener('contextmenu',block);
+  });
 })();
 
 (function(){
@@ -553,26 +584,6 @@ function renderReviews(list){
       history.pushState(null,null,hash);
     });
   });
-})();
-
-(function(){
-  var triggered=false;
-  var wrap=document.querySelector('.skills-wrap');
-  if(!wrap)return;
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(!e.isIntersecting||triggered)return;
-      triggered=true;
-      document.querySelectorAll('.skill-item').forEach(function(item,i){
-        setTimeout(function(){
-          var bar=item.querySelector('.skill-bar');
-          if(bar)bar.style.width=item.dataset.pct+'%';
-        },i*80);
-      });
-      obs.disconnect();
-    });
-  },{threshold:.2});
-  obs.observe(wrap);
 })();
 
 /* ── AVAILABILITY STATUS ── */
