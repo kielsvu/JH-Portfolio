@@ -253,7 +253,10 @@ function animateTechCards(){
 
 function animateCertCards(){
   var cards=document.querySelectorAll('.cert-card');
-  cards.forEach(function(c,i){c.classList.remove('visible');c.style.transitionDelay=(i*60)+'ms';});
+  cards.forEach(function(c,i){
+    c.classList.remove('visible');
+    c.style.transitionDelay=(i*60)+'ms';
+  });
   var panel=document.getElementById('tab-certificate');
   void panel.offsetWidth;
   requestAnimationFrame(function(){
