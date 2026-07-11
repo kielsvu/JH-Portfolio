@@ -133,7 +133,7 @@ section{padding:clamp(3rem,7vw,5.5rem) clamp(1.1rem,5vw,3.5rem)}
 
 .r{opacity:0;transition:opacity .65s ease,transform .65s var(--ease)}
 .r.v{opacity:1;transform:none}
-.d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.20s}.d4{transition-delay:.27s}.d5{transition-delay:.34s}.d6{transition-delay:.41s}.d7{transition-delay:.48s}.d8{transition-delay:.55s}
+.d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.20s}.d4{transition-delay:.27s}.d5{transition-delay:.34s}.d6{transition-delay:.41s}.d7{transition-delay:.48s}.d8{transition-delay:.55s}.d9{transition-delay:.62s}
 
 /* ── HERO  -  more asymmetric, less centered-template feel ── */
 #home{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:flex-start;padding:clamp(4rem,10vw,5.5rem) clamp(1.1rem,5vw,3.5rem) clamp(2.5rem,6vw,3.5rem);position:relative;overflow:hidden}
