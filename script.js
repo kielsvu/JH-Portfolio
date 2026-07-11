@@ -696,3 +696,57 @@ document.addEventListener('keydown', function(e) {
       setGreeting(timeFallback(new Date().getHours()));
     });
 })();
+
+/* ── SERVICES PAGINATION ── */
+(function(){
+  var pages=document.querySelectorAll('.svc-page');
+  if(!pages.length)return;
+  var prev=document.getElementById('svc-prev'),next=document.getElementById('svc-next');
+  var dotsEl=document.getElementById('svc-page-dots');
+  var current=0;
+  var animating=false;
+
+  pages.forEach(function(_,i){
+    var dot=document.createElement('button');
+    dot.className='svc-page-dot'+(i===0?' active':'');
+    dot.setAttribute('aria-label','Go to page '+(i+1));
+    dot.addEventListener('click',function(){goTo(i);});
+    dotsEl.appendChild(dot);
+  });
+
+  function updateArrows(){
+    prev.disabled=(current===0);
+    next.disabled=(current===pages.length-1);
+  }
+
+  function goTo(idx){
+    if(idx===current||idx<0||idx>=pages.length||animating)return;
+    animating=true;
+    var oldPage=pages[current];
+    var newPage=pages[idx];
+
+    oldPage.classList.add('fade-out');
+    setTimeout(function(){
+      oldPage.classList.add('hidden');
+      oldPage.classList.remove('fade-out');
+      newPage.classList.remove('hidden');
+      newPage.classList.add('fade-out');
+      void newPage.offsetWidth;
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          newPage.classList.remove('fade-out');
+        });
+      });
+      current=idx;
+      dotsEl.querySelectorAll('.svc-page-dot').forEach(function(d,i){
+        d.classList.toggle('active',i===idx);
+      });
+      updateArrows();
+      animating=false;
+    },280);
+  }
+
+  prev.addEventListener('click',function(){goTo(current-1);});
+  next.addEventListener('click',function(){goTo(current+1);});
+  updateArrows();
+})();
