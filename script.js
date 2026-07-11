@@ -651,3 +651,48 @@ document.addEventListener('keydown', function(e) {
   var btnLink = document.getElementById('email-link-4');
   if (btnLink) btnLink.href = mailto;
 })();
+
+/* ── WEATHER GREETING ── */
+(function(){
+  var el=document.getElementById('intro-greeting');
+  if(!el)return;
+
+  function timeFallback(hour){
+    if(hour<5)return'a quiet night welcome';
+    if(hour<12)return'a bright morning welcome';
+    if(hour<17)return'a good afternoon welcome';
+    if(hour<21)return'a calm evening welcome';
+    return'a late night welcome';
+  }
+
+  function weatherGreeting(code){
+    if(code===0)return'a sunny day welcome';
+    if(code>=1&&code<=3)return'a cloudy day welcome';
+    if(code>=45&&code<=48)return'a foggy day welcome';
+    if(code>=51&&code<=67)return'a rainy day welcome';
+    if(code>=71&&code<=77)return'a snowy day welcome';
+    if(code>=80&&code<=82)return'a rainy day welcome';
+    if(code>=95)return'a stormy day welcome';
+    return null;
+  }
+
+  function setGreeting(text){
+    el.textContent=text;
+  }
+
+  fetch('https://ipwho.is/')
+    .then(function(r){if(!r.ok)throw new Error();return r.json();})
+    .then(function(loc){
+      if(!loc||!loc.success||!loc.latitude||!loc.longitude)throw new Error();
+      return fetch('https://api.open-meteo.com/v1/forecast?latitude='+loc.latitude+'&longitude='+loc.longitude+'&current_weather=true')
+        .then(function(r){if(!r.ok)throw new Error();return r.json();})
+        .then(function(w){
+          var code=w&&w.current_weather?w.current_weather.weathercode:null;
+          var phrase=code!==null?weatherGreeting(code):null;
+          setGreeting(phrase||timeFallback(new Date().getHours()));
+        });
+    })
+    .catch(function(){
+      setGreeting(timeFallback(new Date().getHours()));
+    });
+})();
